@@ -82,12 +82,8 @@
     #define NOT_UNDERSCORED_INTERLOCKED_EXCHANGE
     #endif
 
-    #ifdef __GNUC__
-    #if (_WIN32_WINNT < 0x0501)
     #undef _WIN32_WINNT
-    #define _WIN32_WINNT 0x0501
-    #endif
-    #endif
+    #define _WIN32_WINNT 0x0600
 
     #include <winsock2.h>
     #include <ws2tcpip.h>
@@ -5099,7 +5095,7 @@ extern "C" {
             }
         }
         else {
-            if (inet_ntop(AF_INET6, &address->host, name, nameLength) == NULL) {
+            if (inet_ntop(AF_INET6, (void*)&address->host, name, nameLength) == NULL) {
                 return -1;
             }
         }
